@@ -1,7 +1,10 @@
 import { ShoppingCart } from "lucide-react";
 import { li } from "motion/react-client";
 import React, { useState } from "react";
+import { FaRegUser } from "react-icons/fa";
+import { HiMenuAlt1, HiMenuAlt2 } from "react-icons/hi";
 import { Link } from "react-router";
+import ResponsiveMenu from "./ResponsiveMenu";
 
 export const NavbarMenu = [
   {
@@ -63,8 +66,40 @@ const Navbar = () => {
                 <ShoppingCart></ShoppingCart>
               </button>
             </Link>
+
+            <button className="text-xl ps-8">
+              <FaRegUser />
+            </button>
           </ul>
         </div>
+
+        <div className="flex gap-8 md:hidden z-50">
+          <Link to={"/cart"}>
+            <ShoppingCart></ShoppingCart>
+          </Link>
+
+          {/* mobile hamburger menu */}
+          {showMenu ? (
+            <HiMenuAlt1
+              className="cursor-pointer transition-all md:hidden z-50"
+              onClick={toggleMenu}
+              size={30}
+            ></HiMenuAlt1>
+          ) : (
+            <HiMenuAlt2
+              className="cursor-pointer transition-all md:hidden z-50"
+              onClick={toggleMenu}
+              size={30}
+            ></HiMenuAlt2>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <ResponsiveMenu
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+        ></ResponsiveMenu>
       </div>
     </div>
   );
