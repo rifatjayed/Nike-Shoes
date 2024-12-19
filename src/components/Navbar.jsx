@@ -46,7 +46,7 @@ const Navbar = () => {
         {/* logo-section */}
         <div>
           <img
-            src={"/src/assets/logo2.png"}
+            src={"/src/assets/logo1.png"}
             alt=""
             className="max-w-[100px] "
           />

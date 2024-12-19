@@ -7,6 +7,7 @@ import Shoe3 from "../assets/Shoes3.png";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import Navbar from "./Navbar";
 import { UpdateFollower } from "react-mouse-follower";
+import { div } from "motion/react-client";
 
 const SlideRight = (delay) => {
   return {
@@ -18,19 +19,41 @@ const SlideRight = (delay) => {
       opacity: 1,
       x: 0,
       transition: {
-        durtation: 0.5,
+        duration: 0.5,
         delay: delay,
         ease: easeInOut,
       },
-      exit: {
-        opacity: 0,
-        x: -50,
-        transition: {
-          duration: 0.2,
-          ease: easeInOut,
-        },
+    },
+    exit: {
+      opacity: 0,
+      x: -50,
+      transition: {
+        duration: 0.2,
+        ease: easeInOut,
       },
     },
+
+    // hidden: {
+    //   opacity: 0,
+    //   x: 100,
+    // },
+    // show: {
+    //   opacity: 1,
+    //   x: 0,
+    //   transition: {
+    //     duration: 0.5,
+    //     delay: delay,
+    //     ease: easeInOut,
+    //   },
+    // },
+    // exit: {
+    //   opacity: 0,
+    //   x: -50,
+    //   transition: {
+    //     duration: 0.2,
+    //     ease: easeInOut,
+    //   },
+    // },
   };
 };
 const ShoesData = [
@@ -110,6 +133,47 @@ const Hero = () => {
                   >
                     {activeData.title}
                   </motion.h1>
+                </UpdateFollower>
+              </AnimatePresence>
+
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={activeData.id}
+                  variants={SlideRight(0.4)}
+                  animate="show"
+                  exit="exit"
+                  className="text-sm leading-loose text-white/80"
+                >
+                  {activeData.subtitle}
+                </motion.p>
+              </AnimatePresence>
+
+              <AnimatePresence mode="wait">
+                <UpdateFollower
+                  mouseOptions={{
+                    backgroundColor: activeData.bgColor,
+                    zIndex: 9999,
+                    followSpeed: 0.5,
+                    rotate: -720,
+                    scale: 6,
+                    backgroundElement: (
+                      <div>
+                        <img src={activeData.image} alt="" />
+                      </div>
+                    ),
+                  }}
+                >
+                  <motion.button
+                    key={activeData.id}
+                    variants={SlideRight(0.6)}
+                    initial="hidden"
+                    animate="show"
+                    exit="exit"
+                    style={{ color: activeData.bgColor }}
+                    className="px-4 py-2 bg-white inline-block front-semibold rounded-md "
+                  >
+                    Order Now
+                  </motion.button>
                 </UpdateFollower>
               </AnimatePresence>
             </div>
