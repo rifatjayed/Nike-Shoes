@@ -1,10 +1,10 @@
 import { ShoppingCart } from "lucide-react";
-import { li } from "motion/react-client";
 import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { HiMenuAlt1, HiMenuAlt2 } from "react-icons/hi";
 import { Link } from "react-router";
 import ResponsiveMenu from "./ResponsiveMenu";
+import { UpdateFollower } from "react-mouse-follower";
 
 export const NavbarMenu = [
   {
@@ -57,12 +57,22 @@ const Navbar = () => {
           <ul className="flex items-center gap-4 relative  z-40">
             {NavbarMenu.map((item, index) => (
               <li key={index}>
-                <Link
-                  to={item.link}
-                  className="inline-block text-base font-semibold py-2 px-3 uppercase"
+                <UpdateFollower
+                  mouseOptions={{
+                    backgroundColor: "white",
+                    zIndex: 9999,
+                    followSpeed: 1.5,
+                    scale: 5,
+                    mixBlendMode: "difference",
+                  }}
                 >
-                  {item.title}
-                </Link>
+                  <Link
+                    to={item.link}
+                    className="inline-block text-base font-semibold py-2 px-3 uppercase"
+                  >
+                    {item.title}
+                  </Link>
+                </UpdateFollower>
               </li>
             ))}
             <Link to="/cart">
