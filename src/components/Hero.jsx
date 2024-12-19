@@ -140,6 +140,7 @@ const Hero = () => {
                 <motion.p
                   key={activeData.id}
                   variants={SlideRight(0.4)}
+                  initial="hidden"
                   animate="show"
                   exit="exit"
                   className="text-sm leading-loose text-white/80"
@@ -176,6 +177,19 @@ const Hero = () => {
                   </motion.button>
                 </UpdateFollower>
               </AnimatePresence>
+
+              {/* list separator */}
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+                className="flex items-center justify-center md:justify-start gap-4 !md:mt-24 !mb-10"
+              >
+                <div className="w-20 h-[1px] bg-white"></div>
+                <p className="text-sm">Top Recommendation</p>
+                <div className="w-20 h-[1px] bg-white"></div>
+              </motion.div>
             </div>
           </div>
         </div>
