@@ -41,16 +41,20 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between">
+    <div className=" py-8">
+      <div className="container flex justify-between items-center">
         {/* logo-section */}
         <div>
-          <img src={"/src/assets/logo2.png"} alt="" className="max-w-[100px]" />
+          <img
+            src={"/src/assets/logo2.png"}
+            alt=""
+            className="max-w-[100px] "
+          />
         </div>
 
         {/* Menu Section */}
-        <div>
-          <ul className="flex items-center">
+        <div className="hidden md:block">
+          <ul className="flex items-center gap-4 relative  z-40">
             {NavbarMenu.map((item, index) => (
               <li key={index}>
                 <Link
@@ -61,7 +65,7 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
-            <Link>
+            <Link to="/cart">
               <button className="text-xl ps-14">
                 <ShoppingCart></ShoppingCart>
               </button>
