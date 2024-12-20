@@ -95,6 +95,7 @@ const Hero = () => {
   const handleActiveData = (data) => {
     setActiveData(data);
   };
+
   return (
     <div>
       <motion.section
@@ -190,7 +191,79 @@ const Hero = () => {
                 <p className="text-sm">Top Recommendation</p>
                 <div className="w-20 h-[1px] bg-white"></div>
               </motion.div>
+
+              {/* img switcher */}
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
+                className="grid grid-cols-3 gap-10"
+              >
+                {ShoesData.map((data, index) => {
+                  return (
+                    <UpdateFollower
+                      key={index}
+                      mouseOptions={{
+                        backgroundColor: data.bgColor,
+                        zIndex: 9999,
+                        followSpeed: 0.5,
+                        scale: 5,
+                        text: "View details",
+                        textFontSize: "3px",
+                      }}
+                    >
+                      <div
+                        key={data.id}
+                        onClick={() => handleActiveData(data)}
+                        className="cursor-pointer space-y-3 hover:scale-105 transition-all duration-200"
+                      >
+                        <div className="flex justify-center ">
+                          <img
+                            src={data.image}
+                            alt=""
+                            className={`w-[80px] img-shadow ${
+                              activeData.image === data.image
+                                ? "opacity-100 scale-110"
+                                : "opacity-50"
+                            }`}
+                          />
+                        </div>
+
+                        <div className="text-center !mt-6 space-y-1">
+                          <p className="text-base line-through opacity-50">
+                            {data.price}
+                          </p>
+                        </div>
+                      </div>
+                    </UpdateFollower>
+                  );
+                })}
+              </motion.div>
             </div>
+          </div>
+
+          {/* 
+          hero img */}
+
+          <div className="flex flex-col justify-end items-center relative order-1 md:order-2">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activeData.id}
+                initial={{ opacity: 0, x: 100, rotate: 0 }}
+                animate={{ opacity: 1, x: 0, rotate: -35 }}
+                transition={{ duration: 0.8, delay: 0, ease: easeInOut }}
+                exit={{
+                  opacity: 0,
+                  x: -100,
+                  transition: {
+                    duration: 0.4,
+                  },
+                }}
+                src={activeData.image}
+                className="w-[300px] md:w-[200px] lg:w-[600px] img-shadow lg:absolute lg:top-[10%] z-10"
+              ></motion.img>
+            </AnimatePresence>
           </div>
         </div>
       </motion.section>

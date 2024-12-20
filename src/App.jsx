@@ -14,7 +14,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <main className="overflow-hidden">
+      <main className="overflow-x-hidden">
         <UpdateFollower
           mouseOptions={{
             backgroundColor: "white",
