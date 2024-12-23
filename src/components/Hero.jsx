@@ -7,7 +7,6 @@ import Shoe3 from "../assets/Shoes3.png";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import Navbar from "./Navbar";
 import { UpdateFollower } from "react-mouse-follower";
-import { div } from "motion/react-client";
 
 const SlideRight = (delay) => {
   return {
@@ -32,28 +31,6 @@ const SlideRight = (delay) => {
         ease: easeInOut,
       },
     },
-
-    // hidden: {
-    //   opacity: 0,
-    //   x: 100,
-    // },
-    // show: {
-    //   opacity: 1,
-    //   x: 0,
-    //   transition: {
-    //     duration: 0.5,
-    //     delay: delay,
-    //     ease: easeInOut,
-    //   },
-    // },
-    // exit: {
-    //   opacity: 0,
-    //   x: -50,
-    //   transition: {
-    //     duration: 0.2,
-    //     ease: easeInOut,
-    //   },
-    // },
   };
 };
 const ShoesData = [
@@ -105,11 +82,8 @@ const Hero = () => {
         className="bg-branDark text-white"
       >
         {/* navbar components */}
-
         <Navbar></Navbar>
-
         {/* Hero section */}
-
         <div className="container grid grid-cols-1 md:grid-cols-2 min-h-[605px]">
           <div className=" flex flex-col justify-center py-14 md:py-0 xl:max-w-[500px] text-white order-2 md:order-1">
             <div className="space-y-5 text-center md:text-left">
@@ -243,7 +217,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* 
+          {/*
           hero img */}
 
           <div className="flex flex-col justify-end items-center relative order-1 md:order-2">
@@ -263,6 +237,18 @@ const Hero = () => {
                 src={activeData.image}
                 className="w-[300px] md:w-[200px] lg:w-[600px] img-shadow lg:absolute lg:top-[10%] z-10"
               ></motion.img>
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeData.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0, ease: easeInOut }}
+                className="text-white/5 text-[300px] font-serif font-extrabold absolute top-0 left-1/2 translate-x-1/2 -translate-y-1/2 z-0 "
+              >
+                {activeData.modal}
+              </motion.div>
             </AnimatePresence>
           </div>
         </div>
