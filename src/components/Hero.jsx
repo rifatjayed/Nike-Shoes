@@ -79,7 +79,7 @@ const Hero = () => {
         initial={{ backgroundColor: activeData.bgColor }}
         animate={{ backgroundColor: activeData.bgColor }}
         transition={{ duration: 0.8 }}
-        className="bg-branDark text-white px-28"
+        className="bg-branDark text-white sm:px-8 md:px-16 lg:px-28"
       >
         {/* navbar components */}
         <Navbar></Navbar>
