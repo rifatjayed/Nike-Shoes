@@ -74,12 +74,12 @@ const Hero = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <motion.section
         initial={{ backgroundColor: activeData.bgColor }}
         animate={{ backgroundColor: activeData.bgColor }}
         transition={{ duration: 0.8 }}
-        className="bg-branDark text-white"
+        className="bg-branDark text-white px-28"
       >
         {/* navbar components */}
         <Navbar></Navbar>
@@ -245,11 +245,24 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4, delay: 0, ease: easeInOut }}
-                className="text-white/5 text-[300px] font-serif font-extrabold absolute top-0 left-1/2 translate-x-1/2 -translate-y-1/2 z-0 "
+                className="text-white/5 text-[300px] font-poppins font-extrabold absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 "
+                // className="text-white/5 text-[300px] font-poppins font-extrabold absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
               >
                 {activeData.modal}
               </motion.div>
             </AnimatePresence>
+
+            {/* <AnimatePresence mode="wait">
+              <motion.div
+                key={activeData.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0, ease: easeInOut }}
+                className="text-white/5 text-[300px] font-poppins font-extrabold absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
+              >
+                {activeData.modal}
+              </motion.div>
+            </AnimatePresence> */}
           </div>
         </div>
       </motion.section>
