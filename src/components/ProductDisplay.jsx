@@ -1,6 +1,8 @@
 import React from "react";
 
-const ProductDisplay = () => {
+const ProductDisplay = (props) => {
+  const { product } = props;
+
   return (
     <div>
       <h1>ProductsDisplay</h1>
