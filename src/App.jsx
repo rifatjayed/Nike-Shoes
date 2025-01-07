@@ -6,6 +6,8 @@ import { MouseFollower, UpdateFollower } from "react-mouse-follower";
 import ProductList from "./components/ProductList";
 import SingleProducts from "./components/SingleProducts";
 import Contact from "./pages/Contact";
+import Navbar2 from "./components/Navbar2";
+import Cart from "./pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -14,27 +16,55 @@ const router = createBrowserRouter([
   },
   {
     path: "/mens",
-    element: <ProductList category="men"></ProductList>,
+    element: (
+      <>
+        <Navbar2></Navbar2>
+        <ProductList category="men"></ProductList>
+      </>
+    ),
   },
   {
     path: "/womens",
-    element: <ProductList category="women"></ProductList>,
+    element: (
+      <>
+        <Navbar2></Navbar2> <ProductList category="women"></ProductList>
+      </>
+    ),
   },
   {
     path: "/kids",
-    element: <ProductList category="kids"></ProductList>,
+    element: (
+      <>
+        <Navbar2></Navbar2> <ProductList category="kid"></ProductList>
+      </>
+    ),
   },
   {
     path: "/contact",
-    element: <Contact></Contact>,
+    element: (
+      <>
+        {" "}
+        <Navbar2></Navbar2>
+        <Contact></Contact>
+      </>
+    ),
   },
   {
     path: "/products/:productId",
-    element: <SingleProducts></SingleProducts>,
+    element: (
+      <>
+        <Navbar2></Navbar2> <SingleProducts></SingleProducts>,
+      </>
+    ),
   },
   {
     path: "cart",
-    element: <SingleProducts></SingleProducts>,
+    element: (
+      <>
+        <Navbar2></Navbar2>
+        <Cart></Cart>
+      </>
+    ),
   },
 ]);
 
