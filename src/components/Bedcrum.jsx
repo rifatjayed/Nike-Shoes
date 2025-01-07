@@ -1,9 +1,13 @@
+import { ChevronRight } from "lucide-react";
 import React from "react";
 
-const Bedcrum = () => {
+const Bedcrum = (props) => {
+  const { product } = props;
   return (
     <div>
-      <h1>bedcrum</h1>
+      HOME <ChevronRight>SHOP</ChevronRight>
+      {product.category} <ChevronRight></ChevronRight>
+      {product.name}
     </div>
   );
 };

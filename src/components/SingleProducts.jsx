@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import all_product from "../Data/all_products";
 import ProductDisplay from "./ProductDisplay";
 import Description from "./Description";
+import Bedcrum from "./Bedcrum";
 
 const SingleProducts = () => {
   const { productId } = useParams();
@@ -10,6 +11,7 @@ const SingleProducts = () => {
 
   return (
     <div>
+      <Bedcrum product={product}></Bedcrum>
       <ProductDisplay product={product}></ProductDisplay>
 
       <Description></Description>
