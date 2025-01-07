@@ -8,11 +8,16 @@ import SingleProducts from "./components/SingleProducts";
 import Contact from "./pages/Contact";
 import Navbar2 from "./components/Navbar2";
 import Cart from "./pages/Cart";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>,
+    element: (
+      <>
+        <Home></Home> <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/mens",
@@ -20,6 +25,7 @@ const router = createBrowserRouter([
       <>
         <Navbar2></Navbar2>
         <ProductList category="men"></ProductList>
+        <Footer></Footer>
       </>
     ),
   },
@@ -27,7 +33,8 @@ const router = createBrowserRouter([
     path: "/womens",
     element: (
       <>
-        <Navbar2></Navbar2> <ProductList category="women"></ProductList>
+        <Navbar2></Navbar2> <ProductList category="women"></ProductList>{" "}
+        <Footer></Footer>
       </>
     ),
   },
@@ -35,7 +42,8 @@ const router = createBrowserRouter([
     path: "/kids",
     element: (
       <>
-        <Navbar2></Navbar2> <ProductList category="kid"></ProductList>
+        <Navbar2></Navbar2> <ProductList category="kid"></ProductList>{" "}
+        <Footer></Footer>
       </>
     ),
   },
@@ -45,7 +53,7 @@ const router = createBrowserRouter([
       <>
         {" "}
         <Navbar2></Navbar2>
-        <Contact></Contact>
+        <Contact></Contact> <Footer></Footer>
       </>
     ),
   },
@@ -53,7 +61,8 @@ const router = createBrowserRouter([
     path: "/products/:productId",
     element: (
       <>
-        <Navbar2></Navbar2> <SingleProducts></SingleProducts>,
+        <Navbar2></Navbar2> <SingleProducts></SingleProducts>
+        <Footer></Footer>
       </>
     ),
   },
@@ -63,6 +72,7 @@ const router = createBrowserRouter([
       <>
         <Navbar2></Navbar2>
         <Cart></Cart>
+        <Footer></Footer>
       </>
     ),
   },
