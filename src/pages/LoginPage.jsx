@@ -9,8 +9,10 @@ import { AuthContext } from "../Context/AuthProvider";
 import googleicon from "../assets/search.png";
 
 const LoginPage = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,8 +23,21 @@ const LoginPage = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+
+        setSuccess("Login done");
         e.target.reset();
         navigate("/");
+      })
+      .catch((error) => {
+        setError("error khyse re");
+        console.log(error);
+      });
+  };
+
+  const handleGoogleSign = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result);
       })
       .catch((error) => {
         console.log(error);
@@ -66,8 +81,8 @@ const LoginPage = () => {
               </label>
             </div>
 
-            {/* {error && <p className="text-red-500">{error}</p>}
-            {success && <p>{success}</p>} */}
+            {error && <p className="text-red-500">{error}</p>}
+            {success && <p>{success}</p>}
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
             </div>
@@ -88,7 +103,7 @@ const LoginPage = () => {
               <div className="flex-grow mr-4 h-px bg-gray-300"></div>
             </div>
             <div className="flex justify-center mt-4 mb-10">
-              <button onClick={handleSubmit} className="">
+              <button onClick={handleGoogleSign} className="">
                 <img className="w-[30px]" src={googleicon} alt="" />
               </button>
             </div>

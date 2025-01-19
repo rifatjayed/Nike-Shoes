@@ -1,18 +1,14 @@
 import React, { useContext, useState } from "react";
 
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  updateProfile,
-} from "firebase/auth";
-import auth from "../firebase/firebase.config";
 import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthProvider";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
-  console.log(createUser);
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,11 +19,23 @@ const Register = () => {
     const password = e.target.password.value;
     // console.log(email, password);
 
+    // Password validation before proceeding
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 8 characters long, contain at least one letter, and at least one number."
+      );
+      return; // Stop execution if the password is invalid
+    }
+
     createUser(email, password)
       .then((result) => {
+        setSuccess("user Create Done");
+        e.target.reset();
+        navigate("/");
         console.log(result.user);
       })
       .catch((error) => {
+        setError("error khyse re");
         console.log(error);
       });
   };
@@ -90,8 +98,8 @@ const Register = () => {
                 </span> */}
               </div>
             </div>
-            {/* {error && <p>{error}</p>}
-            {success && <p>{success}</p>} */}
+            {error && <p>{error}</p>}
+            {success && <p>{success}</p>}
             <div className="form-control mt-6">
               <button className="btn btn-primary">Register</button>
             </div>
