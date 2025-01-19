@@ -11,10 +11,6 @@ import { Link } from "react-router";
 import { AuthContext } from "../Context/AuthProvider";
 
 const Register = () => {
-  // const [error, setError] = useState("");
-  // const [success, setSuccess] = useState("");
-  // const [show, setShow] = useState(false);
-
   const { createUser } = useContext(AuthContext);
   console.log(createUser);
 
@@ -34,59 +30,17 @@ const Register = () => {
       .catch((error) => {
         console.log(error);
       });
-    // setError("");
-    // setSuccess("");
-
-    // if (!passwordRegex.test(password)) {
-    //   return setError(
-    //     "Password must be at least 8 characters long, contain at least one letter, and at least one number."
-    //   );
-    // }
-
-    // createUserWithEmailAndPassword(auth, email, password)
-    //   .then((result) => {
-    //     const user = result.user;
-    //     console.log(user);
-    //     setSuccess("User Create Success");
-
-    //     // update user
-    //     updateProfile(result.user, {
-    //       displayName: name,
-    //     })
-    //       .then(() => {
-    //         console.log("Profile updated!");
-    //         // ...
-    //       })
-    //       .catch((error) => {
-    //         // An error occurred
-    //         // ...
-    //       });
-
-    //     // email verification
-    //     sendEmailVerification(result.user).then(() => {
-    //       alert("Please Check Your email and verification your account");
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     const errorMessage = error.message;
-    //     setError(errorMessage);
-    //     console.log(error);
-    //   });
   };
 
   return (
     <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
+      <div className="hero-content flex flex-col items-center">
+        <div>
           <h1 className="text-5xl font-bold">Register now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
         </div>
+
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form onSubmit={handleSubmit} className="card-body">
+          <form onSubmit={handleSubmit} className="card-body w-[350px]">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Your name</span>
@@ -142,10 +96,10 @@ const Register = () => {
               <button className="btn btn-primary">Register</button>
             </div>
           </form>
-          <p>
+          <p className="ml-4">
             Already have an account? Please
             <Link to="/login">
-              <button className="btn btn-link">login</button>
+              <button className="btn btn-link">Login</button>
             </Link>
           </p>
         </div>

@@ -1,10 +1,11 @@
 import { ShoppingCart } from "lucide-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { HiMenuAlt1, HiMenuAlt2 } from "react-icons/hi";
 import { Link } from "react-router";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { UpdateFollower } from "react-mouse-follower";
+import { AuthContext } from "../Context/AuthProvider";
 
 export const NavbarMenu = [
   {
@@ -32,16 +33,16 @@ export const NavbarMenu = [
     title: "Contact",
     link: "/contact",
   },
-  {
-    id: 6,
-    title: "Login",
-    link: "/login",
-  },
-  {
-    id: 7,
-    title: "Register",
-    link: "/register",
-  },
+  // {
+  //   id: 6,
+  //   title: "Login",
+  //   link: "/login",
+  // },
+  // {
+  //   id: 7,
+  //   title: "Register",
+  //   link: "/register",
+  // },
 ];
 
 const Navbar = () => {

@@ -4,24 +4,16 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthProvider";
-
-// import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-// import app from "../firebase/firebase.config";
-
-// const auth = getAuth(app);
-// const provider = new GoogleAuthProvider();
+import googleicon from "../assets/search.png";
 
 const LoginPage = () => {
   const { signInUser } = useContext(AuthContext);
-  // const [error, setError] = useState("");
-  // const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setSuccess("");
-    // setError("");
 
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -29,69 +21,23 @@ const LoginPage = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        e.target.reset();
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // signInWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     console.log(user);
-    //     if (userCredential.user.emailVerified) {
-    //       setSuccess("Login Successfully ");
-    //     } else {
-    //       alert("Please Verify your email address");
-    //     }
-
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     // setError(errorMessage);
-    //     setError(errorMessage);
-    //     console.log(errorMessage);
-    //   });
   };
-  // const emailRef = useRef(null);
-
-  // const handleResetPass = () => {
-  //   const email = emailRef.current.value;
-
-  //   if (!email) {
-  //     console.log("email daw");
-  //     return;
-  //   } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email))
-  //     console.log("please give me valid email");
-
-  //   sendPasswordResetEmail(auth, email)
-  //     .then((result) => {
-  //       // Password reset email sent!
-  //       alert("please cheak your email");
-  //     })
-  //     .catch((error) => {
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       console.log(errorMessage);
-  //       // ..
-  //     });
-  // };
 
   return (
     <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
+      <div className="hero-content flex flex-col items-center">
+        <div>
           <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
         </div>
+
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form onSubmit={handleSubmit} className="card-body">
+          <form onSubmit={handleSubmit} className="card-body w-[350px]">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -101,8 +47,6 @@ const LoginPage = () => {
                 placeholder="email"
                 className="input input-bordered"
                 name="email"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-control">
@@ -114,8 +58,6 @@ const LoginPage = () => {
                 placeholder="password"
                 className="input input-bordered"
                 name="password"
-                // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
               />
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
@@ -123,28 +65,34 @@ const LoginPage = () => {
                 </a>
               </label>
             </div>
-            <div>
-              <p>login with google Account</p>
-              <button
-                onClick={handleSubmit}
-                className="border border-blue-500 p-3 "
-              >
-                Google
-              </button>
-            </div>
+
             {/* {error && <p className="text-red-500">{error}</p>}
             {success && <p>{success}</p>} */}
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
             </div>
           </form>
-          <p>
-            new to this site? Please{" "}
+          <p className="ms-8">
+            Don't have an account? Please
             <Link to="/register">
-              {" "}
               <button className="btn btn-link">Register</button>
             </Link>
           </p>
+
+          <div>
+            <div className="flex items-center">
+              <div className="flex-grow ml-4 h-px bg-gray-300"></div>
+              <span className="mx-4 text-gray-500 font-semibold">
+                Contact with
+              </span>
+              <div className="flex-grow mr-4 h-px bg-gray-300"></div>
+            </div>
+            <div className="flex justify-center mt-4 mb-10">
+              <button onClick={handleSubmit} className="">
+                <img className="w-[30px]" src={googleicon} alt="" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

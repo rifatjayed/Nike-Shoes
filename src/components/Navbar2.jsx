@@ -7,11 +7,25 @@ import { HiMenuAlt1, HiMenuAlt2 } from "react-icons/hi";
 import { Link } from "react-router";
 import ResponsiveMenu from "./ResponsiveMenu";
 import { UpdateFollower } from "react-mouse-follower";
+import { AuthContext } from "../Context/AuthProvider";
 
 const Navbar2 = () => {
+  const { user, logOut } = useContext(AuthContext);
+  // const emailName = user.email;
+  console.log(user);
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleLogOut = () => {
+    logOut()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const { getTotalCartItems } = useContext(ShopContext);
 
@@ -59,6 +73,26 @@ const Navbar2 = () => {
             <button className="text-xl ps-8">
               <FaRegUser />
             </button>
+
+            {user ? (
+              <>
+                <p>{user.email}</p>
+                <button
+                  onClick={handleLogOut}
+                  className="inline-block text-base font-semibold py-2 px-3 uppercase"
+                >
+                  LogOut{" "}
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <button className="inline-block text-base font-semibold py-2 px-3 uppercase">
+                    LogIn{" "}
+                  </button>
+                </Link>
+              </>
+            )}
           </ul>
         </div>
 

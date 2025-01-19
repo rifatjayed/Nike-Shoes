@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
 import LoginPage from "./pages/LoginPage";
 import Register from "./pages/Register";
+import PrivateRoutes from "./components/routes/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -72,9 +73,12 @@ const router = createBrowserRouter([
     path: "cart",
     element: (
       <>
-        <Navbar2></Navbar2>
-        <Cart></Cart>
-        <Footer></Footer>
+        {" "}
+        <PrivateRoutes>
+          <Navbar2></Navbar2>
+          <Cart></Cart>
+          <Footer></Footer>
+        </PrivateRoutes>
       </>
     ),
   },
