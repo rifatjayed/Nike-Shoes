@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { FaUserCircle } from "react-icons/fa";
 import { NavbarMenu } from "./Navbar";
 import { Link } from "react-router";
+import { AuthContext } from "../Context/AuthProvider";
 
 const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
+  const { user } = useContext(AuthContext);
   return (
     <div
       className={`${
@@ -15,8 +17,19 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
         <div className="flex items-center">
           <FaUserCircle size={50}></FaUserCircle>
           <div>
-            <h1>Hellow User</h1>
-            <h1 className="text-sm text-slate-500"> Premium User</h1>
+            {user ? (
+              <>
+                {" "}
+                <h1>{user.displayNam}</h1>
+                <h1 className="text-sm text-slate-500">{user.email}</h1>
+              </>
+            ) : (
+              <>
+                {" "}
+                <h1>Hellow User</h1>
+                <h1 className="text-sm text-slate-500"> Premium User</h1>
+              </>
+            )}
           </div>
         </div>
 

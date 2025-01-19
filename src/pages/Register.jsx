@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthProvider";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -13,6 +14,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setError("");
+    setSuccess("");
+
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     const name = e.target.name.value;
     const email = e.target.email.value;
@@ -20,12 +24,13 @@ const Register = () => {
     // console.log(email, password);
 
     // Password validation before proceeding
-    if (!passwordRegex.test(password)) {
-      setError(
-        "Password must be at least 8 characters long, contain at least one letter, and at least one number."
-      );
-      return; // Stop execution if the password is invalid
-    }
+    // if (!passwordRegex.test(password)) {
+    //   setError(
+    //     "Password must be at least 8 characters long, contain at least one letter, and at least one number."
+    //   );
+    //   return;
+    // }
+    // setError("");
 
     createUser(email, password)
       .then((result) => {
@@ -33,6 +38,16 @@ const Register = () => {
         e.target.reset();
         navigate("/");
         console.log(result.user);
+
+        updateProfile(result.user, {
+          displayName: name,
+        })
+          .then(() => {
+            console.log("     Profile updated!");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         setError("error khyse re");
