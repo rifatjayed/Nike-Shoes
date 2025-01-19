@@ -32,6 +32,16 @@ export const NavbarMenu = [
     title: "Contact",
     link: "/contact",
   },
+  {
+    id: 6,
+    title: "Login",
+    link: "/login",
+  },
+  {
+    id: 7,
+    title: "Register",
+    link: "/register",
+  },
 ];
 
 const Navbar = () => {

@@ -10,7 +10,7 @@ const SingleProducts = () => {
   const product = all_product.find((e) => e.id === Number(productId));
 
   return (
-    <div>
+    <div className="sm:px-8 md:px-16 lg:px-28">
       <Bedcrum product={product}></Bedcrum>
       <ProductDisplay product={product}></ProductDisplay>
 

@@ -9,6 +9,8 @@ import Contact from "./pages/Contact";
 import Navbar2 from "./components/Navbar2";
 import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
+import LoginPage from "./pages/LoginPage";
+import Register from "./pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +75,25 @@ const router = createBrowserRouter([
         <Navbar2></Navbar2>
         <Cart></Cart>
         <Footer></Footer>
+      </>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <>
+        <Navbar2></Navbar2>
+        <LoginPage></LoginPage>
+        <Footer></Footer>
+      </>
+    ),
+  },
+  {
+    path: "/register",
+    element: (
+      <>
+        <Navbar2></Navbar2>
+        <Register></Register>,<Footer></Footer>
       </>
     ),
   },

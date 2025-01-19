@@ -16,7 +16,7 @@ const Navbar2 = () => {
   const { getTotalCartItems } = useContext(ShopContext);
 
   return (
-    <div className=" text-black py-2 bg-gray-100 z-10">
+    <div className=" text-black py-2  bg-gray-100 z-10 sm:px-8 md:px-16 lg:px-28">
       <div className="container flex justify-between items-center">
         {/* logo-section */}
         <div>

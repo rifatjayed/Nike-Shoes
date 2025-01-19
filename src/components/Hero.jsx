@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Shoe1 from "../assets/Shoes1.png";
 import Shoe2 from "../assets/Shoes2.png";
 
@@ -252,17 +252,7 @@ const Hero = () => {
               </motion.div>
             </AnimatePresence>
 
-            {/* <AnimatePresence mode="wait">
-              <motion.div
-                key={activeData.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0, ease: easeInOut }}
-                className="text-white/5 text-[300px] font-poppins font-extrabold absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
-              >
-                {activeData.modal}
-              </motion.div>
-            </AnimatePresence> */}
+         
           </div>
         </div>
       </motion.section>
