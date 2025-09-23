@@ -76,7 +76,7 @@ const Navbar2 = () => {
 
             {user ? (
               <>
-                <p>{user.email}</p>
+                <p>{user.displayName}</p>
                 <button
                   onClick={handleLogOut}
                   className="inline-block text-base font-semibold py-2 px-3 uppercase"

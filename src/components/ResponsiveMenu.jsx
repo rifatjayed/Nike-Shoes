@@ -18,11 +18,11 @@ const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
           <FaUserCircle size={50}></FaUserCircle>
           <div>
             {user ? (
-              <>
+              <div className="ml-2">
                 {" "}
-                <h1>{user.displayNam}</h1>
+                <h1>{user.displayName}</h1>
                 <h1 className="text-sm text-slate-500">{user.email}</h1>
-              </>
+              </div>
             ) : (
               <>
                 {" "}
