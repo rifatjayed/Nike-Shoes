@@ -14,7 +14,7 @@ const SingleProducts = () => {
       <Bedcrum product={product}></Bedcrum>
       <ProductDisplay product={product}></ProductDisplay>
 
-      <Description></Description>
+      <Description productId={productId}></Description>
     </div>
   );
 };

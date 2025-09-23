@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router";
 
 const Item = ({ product }) => {
-  console.log(product);
   return (
     <div className="group relative">
       <Link to={`/products/${product?.id}`}>

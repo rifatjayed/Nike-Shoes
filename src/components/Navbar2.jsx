@@ -12,7 +12,7 @@ import { AuthContext } from "../Context/AuthProvider";
 const Navbar2 = () => {
   const { user, logOut } = useContext(AuthContext);
   // const emailName = user.email;
-  console.log(user);
+  // console.log(user);
   const [showMenu, setShowMenu] = useState(false);
   const toggleMenu = () => {
     setShowMenu(!showMenu);
