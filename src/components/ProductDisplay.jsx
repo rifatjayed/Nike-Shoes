@@ -5,7 +5,8 @@ import { Link } from "react-router";
 
 const ProductDisplay = (props) => {
   const { product } = props;
-  const { addToCart } = useContext(ShopContext);
+
+  const { increaseQuantity } = useContext(ShopContext);
   const [mainImage, setMainImage] = useState(product.image);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 my-20 md:gap-10 px-6 md:px-0">
@@ -86,9 +87,7 @@ const ProductDisplay = (props) => {
 
         <Link to="/cart">
           <button
-            onClick={() => {
-              addToCart(product.id);
-            }}
+            onClick={() => increaseQuantity(product.id)}
             className="bg-[#138695] text-white px-6 py-3 my-4 w-max "
           >
             ADD TO CART
