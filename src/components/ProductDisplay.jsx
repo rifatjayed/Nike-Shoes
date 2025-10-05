@@ -1322,7 +1322,7 @@ const ProductDisplay = (props) => {
       </div>
 
       {/* Additional Product Information Tabs */}
-      <div className="mt-12 border-t border-gray-200 pt-8">
+      {/* <div className="mt-12 border-t border-gray-200 pt-8">
         <div className="flex border-b border-gray-200">
           {[
             { id: "description", label: "Description" },
@@ -1405,7 +1405,7 @@ const ProductDisplay = (props) => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
