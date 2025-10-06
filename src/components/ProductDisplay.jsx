@@ -868,6 +868,464 @@
 
 // export default ProductDisplay;
 
+// import React, { useContext, useState } from "react";
+// import { ShopContext } from "../Context/ShopContext";
+// import {
+//   Star,
+//   ShoppingCart,
+//   Heart,
+//   Share2,
+//   Truck,
+//   Shield,
+//   RotateCcw,
+//   Check,
+//   AlertCircle,
+// } from "lucide-react";
+// import { Link } from "react-router";
+
+// const ProductDisplay = (props) => {
+//   const { product } = props;
+
+//   const shopContext = useContext(ShopContext);
+
+//   const {
+//     increaseQuantity,
+//     addToWishlist,
+//     wishlistItems = {},
+//   } = shopContext || {};
+
+//   const [mainImage, setMainImage] = useState(product.image);
+//   const [selectedSize, setSelectedSize] = useState("");
+//   const [selectedColor, setSelectedColor] = useState("");
+//   const [quantity, setQuantity] = useState(1);
+//   const [activeTab, setActiveTab] = useState("description");
+//   const [errors, setErrors] = useState({});
+
+//   const [isWishlisted, setIsWishlisted] = useState(
+//     wishlistItems ? wishlistItems[product.id] : false
+//   );
+
+//   // Use data from your JSON
+//   const productRating = product.rating || 4.3;
+//   const reviewCount = product.review_count || 122;
+//   const availableSizes = product.sizes || ["7", "8", "9", "10"];
+//   const availableColors = product.colors || ["Black", "White", "Blue"];
+//   const productDescription = product.description;
+//   const features = product.features || [];
+//   const specifications = product.specifications || {};
+//   const reviews = product.reviews || [];
+
+//   // Handle wishlist toggle
+//   const handleWishlistToggle = () => {
+//     if (addToWishlist) {
+//       addToWishlist(product.id);
+//     }
+//     setIsWishlisted(!isWishlisted);
+//   };
+
+//   // Handle quantity change
+//   const handleQuantityChange = (change) => {
+//     setQuantity((prev) => Math.max(1, prev + change));
+//     // Clear quantity error when user changes quantity
+//     if (errors.quantity) {
+//       setErrors((prev) => ({ ...prev, quantity: "" }));
+//     }
+//   };
+
+//   // Validate form before adding to cart
+//   const validateForm = () => {
+//     const newErrors = {};
+
+//     if (!selectedColor) {
+//       newErrors.color = "Please select a color";
+//     }
+
+//     if (!selectedSize) {
+//       newErrors.size = "Please select a size";
+//     }
+
+//     if (quantity < 1) {
+//       newErrors.quantity = "Quantity must be at least 1";
+//     }
+
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0;
+//   };
+
+//   // Handle add to cart with validation
+//   const handleAddToCart = () => {
+//     // Clear previous errors
+//     setErrors({});
+
+//     // Validate form
+//     if (!validateForm()) {
+//       // Scroll to first error
+//       setTimeout(() => {
+//         const firstErrorElement = document.querySelector('[data-error="true"]');
+//         if (firstErrorElement) {
+//           firstErrorElement.scrollIntoView({
+//             behavior: "smooth",
+//             block: "center",
+//           });
+//         }
+//       }, 100);
+//       return;
+//     }
+
+//     if (!increaseQuantity) {
+//       alert("System error. Please try again later.");
+//       return;
+//     }
+
+//     // Add to cart with selected options
+//     for (let i = 0; i < quantity; i++) {
+//       increaseQuantity(product.id);
+//     }
+
+//     // Show success message with selected options
+//     alert(
+//       `✅ Added ${quantity} × ${product.name} (Color: ${selectedColor}, Size: UK ${selectedSize}) to cart!`
+//     );
+
+//     // Optional: Reset form after successful add
+//     // setSelectedColor("");
+//     // setSelectedSize("");
+//     // setQuantity(1);
+//   };
+
+//   // Generate star rating display
+//   const renderStars = (rating) => {
+//     const stars = [];
+//     for (let i = 1; i <= 5; i++) {
+//       if (i <= rating) {
+//         stars.push(
+//           <Star key={i} fill="#138695" size={20} className="text-[#138695]" />
+//         );
+//       } else if (i - 0.5 <= rating) {
+//         stars.push(
+//           <Star key={i} fill="#138695" size={20} className="text-[#138695]" />
+//         );
+//       } else {
+//         stars.push(<Star key={i} fill="none" stroke="#d1d5db" size={20} />);
+//       }
+//     }
+//     return stars;
+//   };
+
+//   const images = [
+//     product.image,
+//     product.image1,
+//     product.image2,
+//     product.image3,
+//   ].filter(Boolean);
+
+//   // Check if add to cart button should be disabled
+//   const isAddToCartDisabled = !selectedColor || !selectedSize || quantity < 1;
+
+//   return (
+//     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+//         {/* Product Images Section */}
+//         <div className="space-y-4">
+//           <div className="bg-gray-50 rounded-2xl overflow-hidden">
+//             <img
+//               src={mainImage}
+//               alt={product.name}
+//               className="w-full h-96 object-contain hover:scale-105 transition-transform duration-500"
+//             />
+//           </div>
+
+//           <div className="flex gap-3 overflow-x-auto pb-2">
+//             {images.map((img, index) => (
+//               <button
+//                 key={index}
+//                 onClick={() => setMainImage(img)}
+//                 className={`flex-shrink-0 w-20 h-20 rounded-lg border-2 transition-all ${
+//                   mainImage === img ? "border-[#138695]" : "border-gray-200"
+//                 }`}
+//               >
+//                 <img
+//                   src={img}
+//                   alt={`${product.name} view ${index + 1}`}
+//                   className="w-full h-full object-cover rounded-md"
+//                 />
+//               </button>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Product Info Section */}
+//         <div className="space-y-6">
+//           {/* Breadcrumb */}
+//           <nav className="text-sm text-gray-500">
+//             <Link to="/" className="hover:text-[#138695] transition-colors">
+//               Home
+//             </Link>
+//             <span className="mx-2">/</span>
+//             <span className="text-gray-800 font-medium capitalize">
+//               {product.category}
+//             </span>
+//             <span className="mx-2">/</span>
+//             <span className="text-gray-600">{product.name}</span>
+//           </nav>
+
+//           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">
+//             {product.name}
+//           </h1>
+
+//           <div className="flex items-center gap-4">
+//             <div className="flex items-center gap-2">
+//               <div className="flex items-center gap-1">
+//                 {renderStars(productRating)}
+//               </div>
+//               <span className="text-lg font-semibold text-gray-700">
+//                 {productRating}
+//               </span>
+//             </div>
+//             <span className="text-gray-400">•</span>
+//             <span className="text-gray-600 hover:text-[#138695] cursor-pointer">
+//               {reviewCount} reviews
+//             </span>
+//             <span
+//               className={`px-2 py-1 rounded-full text-xs font-medium ${
+//                 product.in_stock
+//                   ? "bg-green-100 text-green-800"
+//                   : "bg-red-100 text-red-800"
+//               }`}
+//             >
+//               {product.in_stock ? "In Stock" : "Out of Stock"}
+//             </span>
+//           </div>
+
+//           {/* Price */}
+//           <div className="flex items-center gap-4">
+//             <span className="text-3xl font-bold text-[#138695]">
+//               ${product.new_price}
+//             </span>
+//             {product.old_price && (
+//               <span className="text-xl text-gray-400 line-through">
+//                 ${product.old_price}
+//               </span>
+//             )}
+//             {product.old_price && (
+//               <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-semibold">
+//                 Save ${(product.old_price - product.new_price).toFixed(2)}
+//               </span>
+//             )}
+//           </div>
+
+//           <p className="text-gray-600 leading-relaxed">{productDescription}</p>
+
+//           {/* Features List */}
+//           {features.length > 0 && (
+//             <div className="space-y-2">
+//               <h3 className="font-semibold text-gray-900">Key Features:</h3>
+//               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+//                 {features.map((feature, index) => (
+//                   <li
+//                     key={index}
+//                     className="flex items-center gap-2 text-sm text-gray-600"
+//                   >
+//                     <Check size={16} className="text-green-500" />
+//                     {feature}
+//                   </li>
+//                 ))}
+//               </ul>
+//             </div>
+//           )}
+
+//           {/* Color Selection with Error */}
+//           <div className="space-y-3" data-error={!!errors.color}>
+//             <div className="flex items-center justify-between">
+//               <label className="font-semibold text-gray-900">
+//                 Select Color *
+//               </label>
+//               {errors.color && (
+//                 <span className="text-red-500 text-sm flex items-center gap-1">
+//                   <AlertCircle size={14} />
+//                   {errors.color}
+//                 </span>
+//               )}
+//             </div>
+//             <div className="flex gap-3">
+//               {availableColors.map((color) => (
+//                 <button
+//                   key={color}
+//                   onClick={() => {
+//                     setSelectedColor(color);
+//                     if (errors.color)
+//                       setErrors((prev) => ({ ...prev, color: "" }));
+//                   }}
+//                   className={`px-4 py-2 border-2 rounded-lg font-medium transition-all ${
+//                     selectedColor === color
+//                       ? "border-[#138695] bg-blue-50 text-[#138695]"
+//                       : "border-gray-200 hover:border-gray-300"
+//                   } ${errors.color ? "border-red-300 bg-red-50" : ""}`}
+//                 >
+//                   {color}
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* Size Selection with Error */}
+//           <div className="space-y-3" data-error={!!errors.size}>
+//             <div className="flex items-center justify-between">
+//               <label className="font-semibold text-gray-900">
+//                 Select Size *
+//               </label>
+//               {errors.size && (
+//                 <span className="text-red-500 text-sm flex items-center gap-1">
+//                   <AlertCircle size={14} />
+//                   {errors.size}
+//                 </span>
+//               )}
+//             </div>
+//             <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+//               {availableSizes.map((size) => (
+//                 <button
+//                   key={size}
+//                   onClick={() => {
+//                     setSelectedSize(size);
+//                     if (errors.size)
+//                       setErrors((prev) => ({ ...prev, size: "" }));
+//                   }}
+//                   className={`py-3 px-2 border-2 rounded-lg text-center font-medium transition-all ${
+//                     selectedSize === size
+//                       ? "border-[#138695] bg-blue-50 text-[#138695]"
+//                       : "border-gray-200 hover:border-gray-300"
+//                   } ${errors.size ? "border-red-300 bg-red-50" : ""}`}
+//                 >
+//                   UK {size}
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* Quantity Selection with Error */}
+//           <div className="space-y-3" data-error={!!errors.quantity}>
+//             <div className="flex items-center justify-between">
+//               <label className="font-semibold text-gray-900">Quantity *</label>
+//               {errors.quantity && (
+//                 <span className="text-red-500 text-sm flex items-center gap-1">
+//                   <AlertCircle size={14} />
+//                   {errors.quantity}
+//                 </span>
+//               )}
+//             </div>
+//             <div className="flex items-center gap-4">
+//               <div
+//                 className={`flex items-center border rounded-lg transition-all ${
+//                   errors.quantity
+//                     ? "border-red-300 bg-red-50"
+//                     : "border-gray-200"
+//                 }`}
+//               >
+//                 <button
+//                   onClick={() => handleQuantityChange(-1)}
+//                   className="p-3 hover:bg-gray-50 transition-colors"
+//                 >
+//                   <span className="text-xl font-bold">−</span>
+//                 </button>
+//                 <span className="px-6 py-2 text-lg font-semibold min-w-[60px] text-center">
+//                   {quantity}
+//                 </span>
+//                 <button
+//                   onClick={() => handleQuantityChange(1)}
+//                   className="p-3 hover:bg-gray-50 transition-colors"
+//                 >
+//                   <span className="text-xl font-bold">+</span>
+//                 </button>
+//               </div>
+//               <span className="text-sm text-gray-500">
+//                 {product.stock || 15} items available
+//               </span>
+//             </div>
+//           </div>
+
+//           {/* Action Buttons */}
+//           <div className="space-y-4 pt-4">
+//             <div className="flex gap-4">
+//               <button
+//                 onClick={handleAddToCart}
+//                 disabled={!product.in_stock || isAddToCartDisabled}
+//                 className={`flex-1 py-4 px-6 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
+//                   product.in_stock && !isAddToCartDisabled
+//                     ? "bg-[#138695] text-white hover:bg-[#0f6d75] hover:shadow-lg"
+//                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
+//                 }`}
+//               >
+//                 <ShoppingCart size={20} />
+//                 {!product.in_stock
+//                   ? "Out of Stock"
+//                   : isAddToCartDisabled
+//                   ? "Select Options"
+//                   : "Add to Cart"}
+//               </button>
+
+//               <button
+//                 onClick={handleWishlistToggle}
+//                 className={`p-4 border-2 rounded-xl transition-all ${
+//                   isWishlisted
+//                     ? "border-red-500 bg-red-50 text-red-500"
+//                     : "border-gray-300 text-gray-600 hover:border-[#138695] hover:text-[#138695]"
+//                 }`}
+//               >
+//                 <Heart
+//                   fill={isWishlisted ? "currentColor" : "none"}
+//                   size={20}
+//                 />
+//               </button>
+//             </div>
+
+//             {/* Requirements Info */}
+//             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+//               <p className="text-blue-800 text-sm flex items-center gap-2">
+//                 <AlertCircle size={16} />
+//                 <span>
+//                   Please select color, size, and quantity before adding to cart
+//                 </span>
+//               </p>
+//             </div>
+//           </div>
+
+//           {/* Selected Options Summary */}
+//           {(selectedColor || selectedSize) && (
+//             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+//               <h4 className="font-semibold text-green-800 mb-2">
+//                 Selected Options:
+//               </h4>
+//               <div className="text-sm text-green-700 space-y-1">
+//                 {selectedColor && <p>• Color: {selectedColor}</p>}
+//                 {selectedSize && <p>• Size: UK {selectedSize}</p>}
+//                 <p>• Quantity: {quantity}</p>
+//               </div>
+//             </div>
+//           )}
+
+//           {/* Product Features Icons */}
+//           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-gray-200">
+//             <div className="flex items-center gap-3 text-gray-600">
+//               <Truck size={20} className="text-[#138695]" />
+//               <span className="text-sm font-medium">Free Shipping</span>
+//             </div>
+//             <div className="flex items-center gap-3 text-gray-600">
+//               <Shield size={20} className="text-[#138695]" />
+//               <span className="text-sm font-medium">2-Year Warranty</span>
+//             </div>
+//             <div className="flex items-center gap-3 text-gray-600">
+//               <RotateCcw size={20} className="text-[#138695]" />
+//               <span className="text-sm font-medium">30-Day Returns</span>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProductDisplay;
+
 import React, { useContext, useState } from "react";
 import { ShopContext } from "../Context/ShopContext";
 import {
@@ -885,11 +1343,10 @@ import { Link } from "react-router";
 
 const ProductDisplay = (props) => {
   const { product } = props;
-
   const shopContext = useContext(ShopContext);
 
   const {
-    increaseQuantity,
+    addToCartWithOptions,
     addToWishlist,
     wishlistItems = {},
   } = shopContext || {};
@@ -952,7 +1409,7 @@ const ProductDisplay = (props) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle add to cart with validation
+  // Handle add to cart with validation - UPDATED to use addToCartWithOptions
   const handleAddToCart = () => {
     // Clear previous errors
     setErrors({});
@@ -972,15 +1429,17 @@ const ProductDisplay = (props) => {
       return;
     }
 
-    if (!increaseQuantity) {
+    if (!addToCartWithOptions) {
       alert("System error. Please try again later.");
       return;
     }
 
-    // Add to cart with selected options
-    for (let i = 0; i < quantity; i++) {
-      increaseQuantity(product.id);
-    }
+    // Add to cart with selected options using the new function
+    addToCartWithOptions(product.id, {
+      color: selectedColor,
+      size: selectedSize,
+      quantity: quantity,
+    });
 
     // Show success message with selected options
     alert(
@@ -1292,10 +1751,10 @@ const ProductDisplay = (props) => {
           {/* Selected Options Summary */}
           {(selectedColor || selectedSize) && (
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <h4 className="font-semibold text-green-800 mb-2">
+              <h4 className="font-semibold text-[#138695] mb-2">
                 Selected Options:
               </h4>
-              <div className="text-sm text-green-700 space-y-1">
+              <div className="text-sm text-[#138695] space-y-1">
                 {selectedColor && <p>• Color: {selectedColor}</p>}
                 {selectedSize && <p>• Size: UK {selectedSize}</p>}
                 <p>• Quantity: {quantity}</p>
@@ -1320,92 +1779,6 @@ const ProductDisplay = (props) => {
           </div>
         </div>
       </div>
-
-      {/* Additional Product Information Tabs */}
-      {/* <div className="mt-12 border-t border-gray-200 pt-8">
-        <div className="flex border-b border-gray-200">
-          {[
-            { id: "description", label: "Description" },
-            { id: "specifications", label: "Specifications" },
-            { id: "reviews", label: `Reviews (${reviews.length})` },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 font-medium border-b-2 transition-colors ${
-                activeTab === tab.id
-                  ? "border-[#138695] text-[#138695]"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="py-6">
-          {activeTab === "description" && (
-            <div className="prose max-w-none">
-              <p className="text-gray-600">{productDescription}</p>
-              {features.length > 0 && (
-                <div className="mt-4">
-                  <h4 className="font-semibold text-gray-900 mb-3">
-                    Features:
-                  </h4>
-                  <ul className="grid gap-2">
-                    {features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-2">
-                        <Check size={16} className="text-green-500" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeTab === "specifications" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.entries(specifications).map(([key, value]) => (
-                <div
-                  key={key}
-                  className="flex justify-between py-2 border-b border-gray-100"
-                >
-                  <span className="font-medium text-gray-600 capitalize">
-                    {key.replace("_", " ")}:
-                  </span>
-                  <span className="text-gray-900">{value}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {activeTab === "reviews" && (
-            <div className="space-y-6">
-              {reviews.map((review) => (
-                <div key={review.id} className="border-b border-gray-100 pb-6">
-                  <div className="flex items-center gap-4 mb-2">
-                    <div className="flex items-center gap-1">
-                      {renderStars(review.rating)}
-                    </div>
-                    <span className="font-semibold">
-                      {review.customer_name}
-                    </span>
-                    {review.verified_purchase && (
-                      <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">
-                        Verified Purchase
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-gray-600 mb-2">{review.comment}</p>
-                  <span className="text-sm text-gray-400">{review.date}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div> */}
     </div>
   );
 };
