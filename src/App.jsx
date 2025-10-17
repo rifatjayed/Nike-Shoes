@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import LoginPage from "./pages/LoginPage";
 import Register from "./pages/Register";
 import PrivateRoutes from "./components/routes/PrivateRoutes";
+import OrderComplete from "./pages/OrderComplete";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,15 @@ const router = createBrowserRouter([
       <>
         <Navbar2></Navbar2>
         <Register></Register>,<Footer></Footer>
+      </>
+    ),
+  },
+    {
+    path: "/orderComplete",
+    element: (
+      <>
+        <Navbar2></Navbar2>
+        <OrderComplete></OrderComplete>,<Footer></Footer>
       </>
     ),
   },
