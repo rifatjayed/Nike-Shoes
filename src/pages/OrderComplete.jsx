@@ -1,28 +1,3 @@
-// import React from "react";
-// import { FaCheckCircle } from "react-icons/fa";
-
-// const OrderComplete = () => {
-//   return (
-//     <div>
-//       <div className="text-center mb-6 md:mb-8">
-//         <FaCheckCircle className="mx-auto text-[#138695] text-4xl md:text-5xl mb-3 md:mb-4" />
-//         <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
-//           Thank you,
-//         </h1>
-//         <p className="text-gray-600 mb-2 text-sm md:text-base">
-//           Your order has been received
-//         </p>
-//         <p className="text-gray-500 text-xs md:text-sm max-w-md mx-auto">
-//           Your order has been fulfilled successfully. Will try to ship it to
-//           your door steps as I learn the Gins Cheers
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default OrderComplete;
-
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
